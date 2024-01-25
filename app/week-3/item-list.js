@@ -73,20 +73,15 @@ const item12 = {
 };
 
 export default function ItemList() {
-  const items = [
-    { name: item1.name, quantity: item1.quantity, category: item1.category },
-    { name: item2.name, quantity: item2.quantity, category: item2.category },
-    { name: item3.name, quantity: item3.quantity, category: item3.category },
-    { name: item4.name, quantity: item4.quantity, category: item4.category },
-    { name: item5.name, quantity: item5.quantity, category: item5.category },
-    { name: item6.name, quantity: item6.quantity, category: item6.category },
-    { name: item7.name, quantity: item7.quantity, category: item7.category },
-    { name: item8.name, quantity: item8.quantity, category: item8.category },
-    { name: item9.name, quantity: item9.quantity, category: item9.category },
-    { name: item10.name, quantity: item10.quantity, category: item10.category },
-    { name: item11.name, quantity: item11.quantity, category: item11.category },
-    { name: item12.name, quantity: item12.quantity, category: item12.category }, 
-  ];
+  const items = [];
+  
+  for (let i = 1; i <= 12; i++) {
+    items.push({
+      name: window['item' + i].name,
+      quantity: window['item' + i].quantity,
+      category: window['item' + i].category,
+    });
+  }
 
   return (
     <div>
