@@ -73,7 +73,10 @@ const item12 = {
 };
 
 export default function ItemList() {
-  const items = [item1, item2,item3,item4,item5,item6,item7,item8, item9, item10,item11,item12];
+  const items = [];
+  for (let i = 1; i <= 12; i++) {
+    items.push(eval("item" + i));
+  }
   return (
     <div>
       {items.map((item, index) => (
