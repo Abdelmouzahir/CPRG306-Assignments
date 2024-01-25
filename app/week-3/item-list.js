@@ -74,7 +74,7 @@ const item12 = {
 
 export default function ItemList() {
   const items = [];
-  
+
   for (let i = 1; i <= 12; i++) {
     items.push({
       name: window['item' + i].name,
@@ -82,7 +82,6 @@ export default function ItemList() {
       category: window['item' + i].category,
     });
   }
-
   return (
     <div>
       {items.map((item, index) => (
