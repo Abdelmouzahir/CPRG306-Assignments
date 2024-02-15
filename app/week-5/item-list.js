@@ -76,7 +76,7 @@ export default function ItemList() {
         </div>
         
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-5">
-            {itemArray.map( (item) => (<Item item = {item} />))}
+            {itemArray.map( (item) => (<Item key={item.id} item = {item} />))}
         </section>
     </div>
 );
