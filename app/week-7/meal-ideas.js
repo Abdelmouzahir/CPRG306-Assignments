@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-async function fetchMealIdeas({ingredient}) {
+async function fetchMealIdeas(ingredient) {
     
   try {
     const response = await fetch(
@@ -45,7 +45,7 @@ export default function MealIdeas({ ingredient }) {
           {meals.map((meal) => (
             <li
               key={meal.idMeal}
-              className="bg-gray-500 hover:bg-gray-600 cursor-pointer m-2 p-2"
+              className="bg-orange-300 hover:bg-green-500 cursor-pointer m-2 p-2"
             >
               {meal.strMeal}
             </li>
