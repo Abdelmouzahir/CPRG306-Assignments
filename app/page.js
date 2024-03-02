@@ -20,6 +20,9 @@ export default function Home() {
         <div className="text-lg flex items-center justify-start w-full">
         <Link href="/week-6"><text> week 6 Assignment</text></Link>
         </div>
+        <div className="text-lg flex items-center justify-start w-full">
+        <Link href="/week-7"><text> week 7 Assignment</text></Link>
+        </div>
       </div>  
     </main>
   )
