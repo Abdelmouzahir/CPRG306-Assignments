@@ -2,7 +2,7 @@
 import Item from './item';
 const { useState } = require('react');
 
-export default function ItemList ({name, quantity, category, items}) {
+export default function ItemList ({items, onItemSelect}) {
 	const [sortBy, setSortBy] = useState("name");
 
 	const itemList = [...items].sort((a, b) => {
@@ -22,7 +22,8 @@ export default function ItemList ({name, quantity, category, items}) {
 			<ul>
 				{ itemList.map((item) => (
 					<li className="bg-slate-800 my-3" key={item.id}>
-						<Item name={item.name} quantity={item.quantity} category={item.category}></Item>
+						<Item item={item} onSelect={() => onItemSelect(item)} ></Item>
+			
 					</li>
 				))}
 			</ul>
