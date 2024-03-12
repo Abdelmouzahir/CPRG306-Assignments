@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen">
       <div className="z-10 max-w-5xl w-full items-center justify-start font-mono text-sm lg:flex text-lg flex-col">
         <h1 className="w-full text-lg">CPRG 306: Web Development 2 - Assignments | Abdel Mouzahir |</h1>
         <div className="text-lg flex items-center justify-start w-full">
@@ -22,6 +22,9 @@ export default function Home() {
         </div>
         <div className="text-lg flex items-center justify-start w-full">
         <Link href="/week-7"><text> week 7 Assignment</text></Link>
+        </div>
+        <div className="text-lg flex items-center justify-start w-full">
+        <Link href="/week-8"><text> week 8 Assignment</text></Link>
         </div>
       </div>  
     </main>
