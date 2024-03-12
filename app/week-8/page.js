@@ -13,8 +13,12 @@ export default function Page() {
 
     return (
         <main>
-            <h1 className="flex justify-center text-4xl font-bold m-6 text-grey-600">
-              Please sign in: {user?.displayName}
+            <h1 className="flex justify-center items-center text-4xl font-bold m-6 text-grey-600 h-full">
+             <div className="m-2">
+                 <p className="m-2">{user ? "Hi there!" : "Please sign in:"}</p>
+                 <p className="m-2">{user?.email}</p>
+                 <p className="m-2">{user?.displayName}</p>
+             </div>
             </h1>
             <div className="flex justify-center">
             {user ? (
