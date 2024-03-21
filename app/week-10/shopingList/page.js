@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 import ItemList from "./item-list";
 import NewIem from "./new-item";
-import MealIdeasList from "./meal-ideas-list";
+import MealIdeasList from "./meal-ideas";
 import { getItem, addItem } from "../_services/shopping-list-service";
 
 export default function Page() {
@@ -27,7 +27,7 @@ export default function Page() {
     let id = addItem(user.uid, item);
     setItems((prevItems) => [...prevItems, {id:id, ...item}]);
   };
-  
+
   const handleItemClicked = (itemName) => {
     setIngredient(
       itemName
