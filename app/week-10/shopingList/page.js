@@ -1,82 +1,58 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { useUserAuth } from "../_utils/auth-context";
-import NewItem from './new-item.js';
-import ItemList from './item-list.js';
-import MealIdeas from './meal-ideas.js';
-import { getItems, addItem, deleteItem } from '../_services/shopping-list-service.js';
+import { redirect } from "next/navigation";
 
-function Page() {
-    const [items, setItems] = useState([]);
-    const [selectedItemName, setSelectedItemName] = useState('');
-    const { user } = useUserAuth();
+import ItemList from "./item-list";
+import NewIem from "./new-item";
+import MealIdeasList from "./meal-ideas-list";
+import { getItem, addItem } from "../_services/shopping-list-service";
 
-    const loadItems = async () => {
-        if (user) {
-            try {
-                const fetchedItems = await getItems(user.uid);
-                setItems(fetchedItems);
-            } catch (error) {
-                console.error("Error loading items:", error);
-            }
-        }
-    };
+export default function Page() {
+  const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
+  const [items, setItems] = useState([]);
+  const [ingredient, setIngredient] = useState(null);
 
-    useEffect(() => {
-        loadItems();
-    }, [user]);
 
-    const handleAddItem = async (newItem) => {
-        try {
-            const newItemId = await addItem(user.uid, newItem);
-            setItems(prevItems => [...prevItems, { ...newItem, id: newItemId }]);
-        } catch (error) {
-            console.error("Error adding item:", error);
-        }
-    };
+  const loadItems = async () => {
+    const loadedItems = await getItem(user.uid);
+    setItems(loadedItems);
+  };
 
-    const handleItemSelect = (itemName) => {
-        const cleanedName = itemName.split(',')[0].trim().replace(/[^a-zA-Z ]/g, "");
-        setSelectedItemName(cleanedName);
-    };
+  useEffect(() => {
+    loadItems();
+  }, [items]);  
 
-    const handleDeleteItem = async (itemId) => {
-        try {
-            await deleteItem(user.uid, itemId);
-            setItems(prevItems => prevItems.filter(item => item.id !== itemId));
-        } catch (error) {
-            console.error("Error deleting item:", error);
-        }
-    };
-
-    if (!user) {
-        return (
-            <main className="bg-gray-100 min-h-screen flex items-center justify-center">
-                <div className="bg-white p-8 rounded-lg shadow-md max-w-md mx-auto text-center">
-                    <p className="text-gray-800 text-lg">
-                        Please log in to view the shopping list.
-                    </p>
-                </div>
-            </main>
-        );
-    }
-
-    return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h1 className="text-3xl font-bold text-gray-800 mb-4">Shopping List</h1>
-            <div style={{ display: 'flex', justifyContent: 'center', width: '100%', gap: '20px' }}>
-                <div>
-                    <h2 className="text-2xl font-bold text-gray-800 mb-4">Add New Item</h2>
-                    <NewItem onAddItem={handleAddItem} />
-                    <ItemList items={items} onItemSelect={handleItemSelect} onDeleteItem={handleDeleteItem} />
-                </div>
-                <div>
-                    <h2 className="text-2xl font-bold text-gray-800 mb-4">Meal Ideas</h2>
-                    <MealIdeas ingredient={selectedItemName} />
-                </div>
-            </div>
-        </div>
+  const handleItemAdd = (item) => {
+    let id = addItem(user.uid, item);
+    setItems((prevItems) => [...prevItems, {id:id, ...item}]);
+  };
+  
+  const handleItemClicked = (itemName) => {
+    setIngredient(
+      itemName
+        .replace(/[^a-z\s]+$/i, " ")
+        .trim()
+        .split(",")[0]
+        .replace(" ", "_")
     );
-}
+  };
 
-export default Page;
+  if (!user) {
+    alert("You must be signed in to view this page");
+    redirect("/week10", "replace");
+  }
+  if (user) {
+    return (
+      <div className="flex">
+        <div className="">
+          <NewIem onAddItem={handleItemAdd} />
+          <ItemList items={items} handleClick={handleItemClicked} />
+        </div>
+        <div className="m-5">
+          <MealIdeasList ingredient={ingredient} />
+        </div>
+      </div>
+    );
+  }
+}
